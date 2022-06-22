@@ -23,16 +23,24 @@ public class JPAClient {
             // Transaction begin
             entityTransaction.begin();
 
-            Board board = new Board();
+            /*Board board = new Board();
             board.setTitle("JPA init");
             board.setWriter("Sejin");
             board.setContent("게시판 프로젝트로 넘어갑니다");
             board.setCreateDate(new Date());
-            board.setCnt(0L);
+            board.setCnt(0L);*/
+
+            Board board = entityManager.find(Board.class, 7L);
+
+            // 테이블 수정
+            // board.setTitle("검색한 게시글의 제목 수정");
 
             // 등록 -> 영속화
             // [DML] INSERT, UPDATE, DELETE는 안 됨 <- Commit을 해줘야 함.(transaction 관리)
-            entityManager.persist(board);
+            // entityManager.persist(board);
+
+            // 엔티티 삭제
+            entityManager.remove(board);
 
             // Transaction commit
             entityTransaction.commit();
