@@ -4,10 +4,15 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "BOARD")
+@TableGenerator(name = "BOARD_SEQ_GENERATOR",
+        table = "ALL_SEQUENCES",
+        pkColumnValue = "BOARD_SEQ", // PK 이름
+        initialValue = 0,
+        allocationSize = 1) // 자동으로 1씩 증가
 public class Board {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE,
+            generator = "BOARD_SEQ_GENERATOR")
     private Long seq;
     private String title;
     private String writer;
